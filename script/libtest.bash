@@ -284,4 +284,8 @@ test_kubeless_function_update() {
     update_function $func
     verify_update_function $func
 }
+minikube_restart() {
+    minikube stop
+    ./scripts/cluster-up-minikube.sh
+}
 # vim: sw=4 ts=4 et si
