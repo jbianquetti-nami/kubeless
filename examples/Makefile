@@ -166,3 +166,12 @@ webserver-update:
 
 webserver-update-verify:
 	kubeless function call webserver |egrep "Welcome to nginx!"
+
+pubsub-python-sts:
+	kubeless topic create s3-python-sts
+	kubeless function deploy pubsub-python-sts --trigger-topic s3-python-sts --runtime python2.7 --handler pubsub.handler --from-file python/pubsub.py
+
+pubsub-python-sts-verify:
+	$(eval DATA := $(shell mktemp -u -p entry -t XXXXXXXX))
+	kubeless topic publish --topic s3-python-sts --data "$(DATA)"
+	bash -c 'grep -q "$(DATA)" <(timeout 60 kubectl logs -f $$(kubectl get po -oname|grep pubsub-python-sts))'

@@ -117,4 +117,8 @@ load ../script/libtest
   wait_for_endpoint webserver
   verify_update_function webserver
 }
+@test "Verify Kafka after restart (if context=='minikube')" {
+    sts_restart
+    test_kubeless_function pubsub-python-sts
+}
 # vim: ts=2 sw=2 si et syntax=sh
