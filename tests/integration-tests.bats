@@ -119,6 +119,5 @@ load ../script/libtest
 }
 @test "Verify Kafka after restart (if context=='minikube')" {
     sts_restart
-    test_kubeless_function pubsub-python-sts
 }
 # vim: ts=2 sw=2 si et syntax=sh
